@@ -1,4 +1,5 @@
 #Repositorio creado por Othón Berlanga
+#Modificado por Sergio Morales :3
 #Modificado por Patricio Hernández
 
 from random import choice
@@ -119,15 +120,50 @@ def move():
         if valid(point + course):
             point.move(course)
         else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+            #Toma en cuenta la posición del Pacman y reduce las
+            #posibles opciones de movimiento después del rebote 
+
+            if (pacman.x >= point.x):
+                if (pacman.y >= point.y):
+                    #El fantasma va arriba o derecha
+                    options = [
+                        vector(10, 0),
+                        vector(0, 10),
+                    ]
+                    plan = choice(options)
+                    course.x = plan.x
+                    course.y = plan.y
+                
+                elif (pacman.y <= point.y):
+                    #El fantasma va abajo o derecha
+                    options = [
+                        vector(10, 0),
+                        vector(0, -10),
+                    ]
+                    plan = choice(options)
+                    course.x = plan.x
+                    course.y = plan.y
+            
+            if (pacman.x <= point.x):
+                if (pacman.y >= point.y):
+                    #El fantasma va arriba o izquierda
+                    options = [
+                        vector(-10, 0),
+                        vector(0, 10),
+                    ]
+                    plan = choice(options)
+                    course.x = plan.x
+                    course.y = plan.y
+            
+                elif (pacman.y <= point.y):
+                    #El fantasma va abajo o izquierda
+                    options = [
+                        vector(-10, 0),
+                        vector(0, -10),
+                    ]
+                    plan = choice(options)
+                    course.x = plan.x
+                    course.y = plan.y
 
         up()
         goto(point.x + 10, point.y + 10)
